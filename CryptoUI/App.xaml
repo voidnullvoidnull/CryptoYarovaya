@@ -5,7 +5,8 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
-        <SolidColorBrush x:Key="TextBackground" Color="#FF545E68"/>
+        <SolidColorBrush x:Key="TextBackground" Color="#33FFFFFF"/>
+        <Thickness x:Key="TextTickness">10,110,233,34</Thickness>
 
     </Application.Resources>
 </Application>

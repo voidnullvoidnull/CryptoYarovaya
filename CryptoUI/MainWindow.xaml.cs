@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,43 +12,57 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Win32;
 
 namespace CryptoUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-
-            Crypter.Init();
-
-            inputTextBox.Text = Crypter.privString;
-            loadedTextBox.Text = Crypter.pubString;
         }
+
+        string privText = "";
+        string pubText = "";
 
         private void generateButton_Click(object sender, RoutedEventArgs e)
         {
-
-            OpenFileDialog dialog = new OpenFileDialog();
-            if (dialog.ShowDialog() == true)
-            {
-                JpegMetadataAdapter jpeg = new JpegMetadataAdapter(dialog.FileName);
-                jpeg.Metadata.Comment = inputTextBox.Text;
-                jpeg.Save();          
-            }            
+            byte[] data = TextCrypter.StringToBytes(inputTextBox.Text, pubText);
+            createdImage.Source = ImageConverter.BinaryToImage(data); 
         }
 
         private void loadButton_Click(object sender, RoutedEventArgs e)
         {
-            BitmapFrame frame = FileManager.LoadImage();
-            BitmapMetadata meta = (BitmapMetadata)frame.Metadata;
-            loadedTextBox.Text = meta.Comment;
+            BitmapFrame frame = FileManager.LoadImage(this);
+            byte[] data = ImageConverter.ImageToBinary(frame);
+            loadedTextBox.Text = TextCrypter.BytesToString(data, privText);
             loadedImage.Source = frame;
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            FileManager.SaveImage((BitmapFrame)createdImage.Source);
+        }
+
+        private void generateKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeyValuePair<string, string> keys = TextCrypter.GetKeys();
+            privateBox.Text = keys.Key;
+            publicBox.Text = keys.Value;
+
+            privateKeyText.Text = keys.Key;
+            publicKeyText.Text = keys.Value;
+        }
+
+        private void privateBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            privText = privateBox.Text;
+        }
+
+        private void publicBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            pubText = publicBox.Text;
         }
     }
 }

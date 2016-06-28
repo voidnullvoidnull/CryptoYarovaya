@@ -1,12 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,53 +8,36 @@ using System.Threading.Tasks;
 
 namespace CryptoUI
 {
-    public static class Crypter
+    public static class ImageConverter
     {
 
-        public static RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
-
-        static RSAParameters priv = new RSAParameters();
-        static RSAParameters pub = new RSAParameters();
-
-        public static string privString;
-        public static string pubString;
-
-
-        public static void Init()
+        public static BitmapFrame BinaryToImage(byte[] data)
         {
-            priv = rsa.ExportParameters(true);
-            pub = rsa.ExportParameters(false);
+            double squaredLenght = Math.Sqrt(data.Length);
 
-            privString = MemorySerialize(priv);
-            pubString = MemorySerialize(pub);
-        }
+            int width = (int)Math.Round(Math.Sqrt(data.Length));
+            int height = data.Length - (width*width) > 0    ?    width + 1 : width;
+            byte[] pixels = new byte[width * height];
 
-        public static string Crypt()
-        {
-            
-            return null;
-        }
-
-        public static string Encrypt()
-        {
-
-            return null;
-        }
-
-
-        private static string MemorySerialize( object key )
-        {
-            byte[] data;
-
-            using (MemoryStream ms = new MemoryStream())
+            for (int i = 0; i < pixels.Length; i++)
             {
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(ms, key);
-                data = ms.ToArray();
+                if(i < data.Length)
+                    pixels[i] = data[i];
+                else
+                    pixels[i] = 255;
             }
 
-            return Encoding.Unicode.GetString(data);
+            BitmapSource source = BitmapSource.Create(width, height, 1, 1, PixelFormats.Gray8, null, pixels, width);
+            BitmapFrame frame = BitmapFrame.Create(source);
+            return frame;
         }
 
+
+        public static byte[] ImageToBinary(BitmapFrame frame)
+        {
+            byte[] data = new byte[frame.PixelWidth * frame.PixelHeight];
+            frame.CopyPixels(data, frame.PixelWidth, 0);
+            return data;
+        }
     }
 }

@@ -5,24 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="YarovayaCrypto" Height="600" Width="800" WindowStartupLocation="CenterScreen" Topmost="True" ResizeMode="NoResize" WindowStyle="ToolWindow">
     <Window.Resources>
         <SolidColorBrush x:Key="DarkBackground" Color="#FF2B3846"/>
+        <SolidColorBrush x:Key="buttonOpacityMask" Color="#B27C7C7C"/>
     </Window.Resources>
-    <Grid Background="{DynamicResource DarkBackground}">
+    <Grid Background="#FF1F1F1F">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="131*"/>
-            <ColumnDefinition Width="67*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="29*" MinHeight="100"/>
-            <RowDefinition Height="28*" MinHeight="100"/>
+            <RowDefinition MinHeight="100"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="inputTextBox" TextWrapping="Wrap" Text=" Горацио&#xD;&#xA;&#xD;&#xA;                                     Я; по крайней мере&#xD;&#xA;                   Есть слух такой. Покойный наш король,&#xD;&#xA;                   Чей образ нам сейчас являлся, был,&#xD;&#xA;                   Вы знаете, норвежским Фортинбрасом,&#xD;&#xA;                   Подвигнутым ревнивою гордыней,&#xD;&#xA;                   На поле вызван; и наш храбрый Гамлет -&#xD;&#xA;                   Таким он слыл во всем известном мире -&#xD;&#xA;                   Убил его; а тот по договору,&#xD;&#xA;                   Скрепленному по чести и законам,&#xD;&#xA;                   Лишался вместе с жизнью всех земель,&#xD;&#xA;                   Ему подвластных, в пользу короля;&#xD;&#xA;                   Взамен чего покойный наш король&#xD;&#xA;                   Ручался равной долей, каковая&#xD;&#xA;                   Переходила в руки Фортинбраса,&#xD;&#xA;                   Будь победитель он; как и его&#xD;&#xA;                   По силе заключенного условья&#xD;&#xA;                   Досталась Гамлету. И вот, незрелой&#xD;&#xA;                   Кипя отвагой, младший Фортинбрас&#xD;&#xA;                   Набрал себе с норвежских побережий&#xD;&#xA;                   Ватагу беззаконных удальцов&#xD;&#xA;                   За корм и харч для некоего дела,&#xD;&#xA;                   Где нужен зуб; и то не что иное -&#xD;&#xA;                   Так понято и нашею державой, -&#xD;&#xA;                   Как отобрать с оружием в руках,&#xD;&#xA;                   Путем насилья сказанные земли,&#xD;&#xA;                   Отцом его утраченные; вот&#xD;&#xA;                   Чем вызваны приготовленья наши&#xD;&#xA;                   И эта наша стража, вот причина&#xD;&#xA;                   И торопи и шума в государстве." Background="{DynamicResource TextBackground}" Foreground="White" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AllowDrop="False" Margin="0,0,0,35" Grid.ColumnSpan="2"/>
-        <Button x:Name="createButton" Content="generate" HorizontalAlignment="Left" Width="100" Click="generateButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="30" Margin="0,0,0,5" OpacityMask="#7F7C7C7C"/>
-        <TextBox x:Name="loadedTextBox" TextWrapping="Wrap" Text="content" VerticalScrollBarVisibility="Auto" IsHitTestVisible="True" IsReadOnly="True" Background="{DynamicResource TextBackground}" Foreground="White" Grid.Row="1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,0,0,35"/>
-        <Image x:Name="loadedImage" Grid.Row="1" Grid.Column="1" Margin="0,0,0,35" Source="Res/empty.png" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Stretch="Fill"/>
-        <Button x:Name="loadButton" Content="load" HorizontalAlignment="Left" Width="100" Click="loadButton_Click" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="30" Margin="0,0,0,5" OpacityMask="#7F7C7C7C"/>
+        <TabControl x:Name="tabs" Background="{x:Null}" BorderBrush="{x:Null}" SelectedIndex="2">
+            <TabItem x:Name="CreateTab" Header="Create" OpacityMask="{DynamicResource buttonOpacityMask}" Margin="14,10,-13,-10" Width="99.6" FontSize="16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="515*"/>
+                        <ColumnDefinition Width="269*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="245"/>
+                        <RowDefinition Height="Auto" MinHeight="265"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="inputTextBox" TextWrapping="Wrap" Background="{DynamicResource TextBackground}" Foreground="White" VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AllowDrop="False" AcceptsReturn="True" AcceptsTab="True" MaxLength="122" IsUndoEnabled="False" BorderBrush="White" Grid.Row="1" Margin="10,5,5,5" BorderThickness="1"/>
+                    <TextBox x:Name="publicBox" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" IsUndoEnabled="False" MinLines="1" TextOptions.TextFormattingMode="Ideal" TextOptions.TextHintingMode="Auto" AutomationProperties.IsRequiredForForm="True" MaxLines="2000" TextChanged="publicBox_TextChanged" Background="#33FFFFFF" Grid.ColumnSpan="2" Margin="10,10,10,5" Foreground="White" BorderThickness="1" BorderBrush="White"/>
+                    <Button x:Name="createButton" Content="generate" HorizontalAlignment="Left" Width="100" Click="generateButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="30" Margin="10,0,0,0" OpacityMask="#7F7C7C7C" Grid.Row="2"/>
+                    <Image x:Name="createdImage" Source="Res/empty.png" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Grid.Column="1" Grid.Row="1" Margin="5,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="254" Width="254"/>
+                    <Button x:Name="saveButton" Content="save image" HorizontalAlignment="Left" Width="100" Click="saveButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="29" OpacityMask="#7F7C7C7C" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ReadTab" Header="Read" OpacityMask="{DynamicResource buttonOpacityMask}" Margin="14,10,-13,-10" Width="99.6" FontSize="16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="515*"/>
+                        <ColumnDefinition Width="269*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="248"/>
+                        <RowDefinition Height="Auto" MinHeight="263"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="loadedTextBox" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsHitTestVisible="True" IsReadOnly="True" Background="{DynamicResource TextBackground}" Foreground="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="10,5,5,5" AcceptsReturn="True" AcceptsTab="True" MaxLength="122" IsUndoEnabled="False" BorderBrush="White" Grid.Row="1" BorderThickness="1"/>
+                    <Button x:Name="loadButton" Content="load" HorizontalAlignment="Left" Width="100" Click="loadButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="29" Margin="10,0,0,0" OpacityMask="#7F7C7C7C" Grid.Row="2"/>
+                    <Image x:Name="loadedImage" Source="Res/empty.png" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Grid.Column="1" Grid.Row="1" Margin="5,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="254" Width="254"/>
+                    <TextBox x:Name="privateBox" Margin="10,10,10,5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" IsUndoEnabled="False" MinLines="1" TextOptions.TextFormattingMode="Ideal" TextOptions.TextHintingMode="Auto" AutomationProperties.IsRequiredForForm="True" MaxLines="2000" TextChanged="privateBox_TextChanged" Background="#33FFFFFF" Grid.ColumnSpan="2" Foreground="White"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="KeysTab" Header="Keys" OpacityMask="{DynamicResource buttonOpacityMask}" Margin="14,10,-13,-10" Width="99.6" FontSize="16">
+                <Grid Margin="10,20,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350*"/>
+                        <ColumnDefinition Width="350*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="generateKeyButton" Content="CreateKey" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="30" OpacityMask="{DynamicResource buttonOpacityMask}" Margin="0,0,5,5" Click="generateKeyButton_Click" Grid.ColumnSpan="2"/>
+                    <Label x:Name="label" Content="PRIVATE" VerticalAlignment="Top" Height="21" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White"/>
+                    <Label x:Name="label_Copy" Content="PUBLIC" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" Height="21" Width="382" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Grid.Column="1"/>
+                    <TextBox x:Name="privateKeyText" Margin="0,21,5,40" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" IsReadOnly="True" IsUndoEnabled="False" Background="#33FFFFFF" Foreground="White" VerticalScrollBarVisibility="Auto"/>
+                    <TextBox x:Name="publicKeyText" Margin="5,21,0,40" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" AutoWordSelection="True" IsReadOnly="True" IsUndoEnabled="False" Background="#33FFFFFF" Foreground="White" VerticalScrollBarVisibility="Auto" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>
