@@ -20,7 +20,7 @@ namespace CryptoUI
     public static class FileManager
     {
 
-        public static BitmapFrame LoadImage( MainWindow window)
+        public static BitmapFrame LoadImage()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             if (dialog.ShowDialog() == true)
@@ -39,7 +39,7 @@ namespace CryptoUI
         }
 
 
-        public static void SaveImage( BitmapFrame frame )
+        public static void SaveImage(BitmapFrame frame )
         {
             SaveFileDialog dialog = new SaveFileDialog();
 
@@ -56,5 +56,11 @@ namespace CryptoUI
 
         }
 
+
+        public static BitmapMetadata GetMetadata(BitmapFrame frame)
+        {
+            BitmapMetadata data = (BitmapMetadata)frame.Metadata;
+            return data;
+        }
     }
 }

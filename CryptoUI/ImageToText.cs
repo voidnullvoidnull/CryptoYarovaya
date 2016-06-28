@@ -1,6 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,44 +14,53 @@ using System.Threading.Tasks;
 
 namespace CryptoUI
 {
-    public static class ImageToText
+    public static class Crypter
     {
 
-        public static BitmapFrame CreateImageFrame(byte[] data)
+        public static RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
+
+        static RSAParameters priv = new RSAParameters();
+        static RSAParameters pub = new RSAParameters();
+
+        public static string privString;
+        public static string pubString;
+
+
+        public static void Init()
         {
-            double squaredLenght = Math.Sqrt(data.Length);
+            priv = rsa.ExportParameters(true);
+            pub = rsa.ExportParameters(false);
 
-            int width = (int)Math.Round(Math.Sqrt(data.Length));
-            int height = data.Length - (width*width) > 0    ?    width + 1 : width;
+            privString = MemorySerialize(priv);
+            pubString = MemorySerialize(pub);
+        }
 
-            byte[] pixels = new byte[width * height];
-            for (int i = 0; i < pixels.Length; i++)
+        public static string Crypt()
+        {
+            
+            return null;
+        }
+
+        public static string Encrypt()
+        {
+
+            return null;
+        }
+
+
+        private static string MemorySerialize( object key )
+        {
+            byte[] data;
+
+            using (MemoryStream ms = new MemoryStream())
             {
-                if(i < data.Length)
-                {
-                    pixels[i] = data[i];
-                }
-                else
-                {
-                    pixels[i] = 255;
-                }
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(ms, key);
+                data = ms.ToArray();
             }
 
-            BitmapSource source = BitmapSource.Create(width, height, 1, 1, PixelFormats.Gray8, null, pixels, width);
-            BitmapFrame frame = BitmapFrame.Create(source);
-            return frame;
+            return Encoding.Unicode.GetString(data);
         }
 
-
-        public static string CreateStringFromImage(BitmapFrame frame)
-        {
-            string text = "";
-
-            byte[] data = new byte[frame.PixelWidth * frame.PixelHeight];
-            frame.CopyPixels(data, frame.PixelWidth, 0);
-
-             text = Encoding.Unicode.GetString(data);
-            return text;
-        }
     }
 }
