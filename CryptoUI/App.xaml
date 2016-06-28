@@ -6,6 +6,7 @@
     <Application.Resources>
 
         <SolidColorBrush x:Key="TextBackground" Color="#FF545E68"/>
+        <Thickness x:Key="TextTickness">10,110,233,34</Thickness>
 
     </Application.Resources>
 </Application>

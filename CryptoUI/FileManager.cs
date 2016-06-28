@@ -39,7 +39,7 @@ namespace CryptoUI
         }
 
 
-        public static void SaveImage( BitmapFrame frame )
+        public static void SaveImage(BitmapFrame frame)
         {
             SaveFileDialog dialog = new SaveFileDialog();
 

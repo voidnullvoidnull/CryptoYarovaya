@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace CryptoUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -25,22 +23,46 @@ namespace CryptoUI
             InitializeComponent();
         }
 
+        string privText = "";
+        string pubText = "";
+
         private void generateButton_Click(object sender, RoutedEventArgs e)
         {
-            byte[] data = TextConverter.StringToBytes(inputTextBox.Text);
-            createdImage.Source = ImageToText.CreateImageFrame(data); 
+            byte[] data = TextCrypter.StringToBytes(inputTextBox.Text, pubText);
+            createdImage.Source = ImageConverter.BinaryToImage(data); 
         }
 
         private void loadButton_Click(object sender, RoutedEventArgs e)
         {
             BitmapFrame frame = FileManager.LoadImage(this);
-            loadedTextBox.Text = ImageToText.CreateStringFromImage(frame);
+            byte[] data = ImageConverter.ImageToBinary(frame);
+            loadedTextBox.Text = TextCrypter.BytesToString(data, privText);
             loadedImage.Source = frame;
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
             FileManager.SaveImage((BitmapFrame)createdImage.Source);
+        }
+
+        private void generateKeyButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeyValuePair<string, string> keys = TextCrypter.GetKeys();
+            privateBox.Text = keys.Key;
+            publicBox.Text = keys.Value;
+
+            privateKeyText.Text = keys.Key;
+            publicKeyText.Text = keys.Value;
+        }
+
+        private void privateBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            privText = privateBox.Text;
+        }
+
+        private void publicBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            pubText = publicBox.Text;
         }
     }
 }
