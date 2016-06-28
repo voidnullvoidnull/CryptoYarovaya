@@ -25,9 +25,9 @@
                         <ColumnDefinition Width="269*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="120*"/>
-                        <RowDefinition Height="133*"/>
-                        <RowDefinition Height="17*"/>
+                        <RowDefinition Height="Auto" MinHeight="245"/>
+                        <RowDefinition Height="Auto" MinHeight="265"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBox x:Name="inputTextBox" TextWrapping="Wrap" Background="{DynamicResource TextBackground}" Foreground="White" VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" AllowDrop="False" AcceptsReturn="True" AcceptsTab="True" MaxLength="122" IsUndoEnabled="False" BorderBrush="White" Grid.Row="1" Margin="10,5,5,5" BorderThickness="1"/>
                     <TextBox x:Name="publicBox" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" IsUndoEnabled="False" MinLines="1" TextOptions.TextFormattingMode="Ideal" TextOptions.TextHintingMode="Auto" AutomationProperties.IsRequiredForForm="True" MaxLines="2000" TextChanged="publicBox_TextChanged" Background="#33FFFFFF" Grid.ColumnSpan="2" Margin="10,10,10,5" Foreground="White" BorderThickness="1" BorderBrush="White"/>
@@ -43,9 +43,9 @@
                         <ColumnDefinition Width="269*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="59*"/>
-                        <RowDefinition Height="66*"/>
-                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="Auto" MinHeight="248"/>
+                        <RowDefinition Height="Auto" MinHeight="263"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBox x:Name="loadedTextBox" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsHitTestVisible="True" IsReadOnly="True" Background="{DynamicResource TextBackground}" Foreground="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="10,5,5,5" AcceptsReturn="True" AcceptsTab="True" MaxLength="122" IsUndoEnabled="False" BorderBrush="White" Grid.Row="1" BorderThickness="1"/>
                     <Button x:Name="loadButton" Content="load" HorizontalAlignment="Left" Width="100" Click="loadButton_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="29" Margin="10,0,0,0" OpacityMask="#7F7C7C7C" Grid.Row="2"/>
